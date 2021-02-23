@@ -9,10 +9,13 @@ import com.stackroute.datamunger.query.Header;
 
 public class CsvQueryProcessor extends QueryProcessingEngine {
     private String fileName;
+    BufferedReader bufferedReader;
 
     // Parameterized constructor to initialize filename
     public CsvQueryProcessor(String fileName) throws FileNotFoundException {
         this.fileName = fileName;
+        String filePath = System.getProperty("user.dir") + "/" + fileName;
+        bufferedReader = new BufferedReader(new FileReader(new File(filePath)));
     }
 
     /*
@@ -24,8 +27,7 @@ public class CsvQueryProcessor extends QueryProcessingEngine {
     @Override
     public Header getHeader() throws IOException {
         String filePath = System.getProperty("user.dir") + "/" + fileName;
-        BufferedReader bufferedReader = new BufferedReader(new FileReader(new File(filePath)));
-
+        bufferedReader = new BufferedReader(new FileReader(new File(filePath)));
         // read the first line
         // populate the header object with the String array containing the header names
         String[] headers = bufferedReader.readLine().trim().split(",");
